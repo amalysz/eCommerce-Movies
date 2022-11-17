@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Movie>
+
+@{ ViewData["Title"] = "Low Stock"; }
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Year)</th>
+                    <th>Media</th>
+                    <th>@Html.DisplayNameFor(model => model.Price)</th>
+                    <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                     <th colspan="2">Actions</th>} 
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Media.Name)
+                    </td>
+                    <td class="align-middle">
+                        $@Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td style="text-align: center">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                <td class="align-middle">
+                    <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Details </a>
+                </td>
+                <td class="align-middle">
+                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit </a>
+                </td>}
+                </tr>
+}
+            </tbody>
+
+        </table>
+    </div>
+</div>

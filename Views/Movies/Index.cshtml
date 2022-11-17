@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Movie>
+
+@{ ViewData["Title"] = "List of Movies"; }
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+<div class="col-md-4 col-xs-6 border-primary mb-3">
+    <div class="card mb-3" style="max-width: 1280px;">
+        <div class="row g-0">
+            <div class="col-md-12">
+                <div class="card-header text-white bg-info">
+                    <p class="card-text">
+                        <h5 style="text-align:center">
+                            @item.Name                            
+                         </h5>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="@item.ImageURL" width="95%" alt="@item.Name">
+            </div>
+            <div class="col-md-6">
+                <textarea rows="7" cols="18" readonly>@item.Description </textarea>
+                <p class="card-text"></p>
+                <p class="card-text">
+                    <b>Category: </b>@item.MovieCategory
+
+                    @if (item.Quantity > 0)
+                    {<span class="badge bg-success text-white">AVAILABLE</span> }
+                    else
+                    { <span class="badge bg-danger text-white">NOT AVAILABLE</span>}
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h6 style="text-align:center"> Release year: @item.Year</h6>
+            </div>
+            <div class="col-md-6">
+                <b>Media: </b>@item.Media.Name
+
+            </div>
+            <div class="col-md-12">
+                <div class="card-footer ">
+                    <p class="card-text">
+                        <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id"><i class="bi-eye-fill"></i> Details</a>
+                        <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id"><i class="bi-cart-plus"></i> Add to Cart (@item.Price.ToString("c"))</a>
+                    </p>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>}
+</div>
+
+@await Html.PartialAsync("_CreateItem", "Movies")

@@ -1,0 +1,57 @@
+﻿@model eMovies.Models.FileModel
+
+@{
+    ViewData["Title"] = "File Upload";
+
+}
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Upload image file</h4>
+        </p?
+        <div class="row">
+            <div class="col-md-12 offset-2">
+                <form asp-action="Upload" asp-controller="Upload" method="post" enctype="multipart/form-data">
+                   @if (Model.IsResponse)
+                   {
+                        if (Model.IsSuccess)
+                        {
+                            <div class="alert alert-success">
+                                 @Model.Message
+                            </div>
+                        }
+                        else
+                        {
+                             <div class="alert alert-danger">
+                                 @Model.Message
+                             </div>
+                        }
+                    }
+                    <div class="row mt-2">
+                        <div class="col-8">
+                           <label class="col-form-label">Enter File Name For Save</label>
+                           <input asp-for="FileName" class="form-control" />
+                            <span asp-validation-for="FileName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-8">
+                            <label class="col-form-label">Select File</label>
+                            <input asp-for="File" class="form-control" />
+                            <span asp-validation-for="File" class="text-danger"></span>
+                        </div>
+                    </div>
+                     
+                    <div class="row mt-2">
+                        <div class="col-5"> 
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success" float-right>Upload File</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
